@@ -1,0 +1,27 @@
+server {
+	listen 8000;
+	listen [::]:8000;
+
+	root /var/www/architect;
+	index index.php;
+	server_name 127.0.0.1;
+	error_log /var/log/nginx/architect_error.log;
+	access_log /var/log/nginx/architect_access.log;
+
+	location / {
+		try_files $uri $uri/ =404;
+	}
+
+	location /health/ {
+		rewrite ^/health/(.*)$ /index.php?$1;
+	}
+
+	location ~ \.php$ {
+		include snippets/fastcgi-php.conf;
+		fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
+	}
+
+	location ~ /\.ht {
+		deny all;
+	}
+}
