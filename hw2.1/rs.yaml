@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+    name: arch-homework
+spec:
+    replicas: 3
+    selector:
+       matchLabels:
+          app: arch-homework
+    template:
+       metadata:
+          labels:
+             app: arch-homework
+       spec:
+          containers:
+          - name: arch-homework
+            image: p12s/hw2:v1
+            ports:
+              - containerPort: 8000
+

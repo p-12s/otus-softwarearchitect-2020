@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: arch-homework-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+  - host: arch.homework
+    http:
+      paths:
+        - path: /otusapp($|/)(.*)
+          backend:
+            serviceName: arch-homework-service
+            servicePort: 9000
+
+# Такая конфигурация говорит, чтобы nginx стоял перед всем входящим трафиком 
+# и принимал запросы на домен arch.homework.
+# все, что приходит на урл /otusapp* ,  пересылалось в сервис

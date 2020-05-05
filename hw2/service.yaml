@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: arch-homework-service # имя для обращения к этому сервису внутри kubernetes
+spec:
+  selector: # селектор лейблов определяет набор подов, к которым сервис будет перенаправлять запросы
+    app: arch-homework
+  ports:
+    - protocol: TCP
+      port: 9000 # выставляет наружу сервис
+      targetPort: web # порт в контейнере 
+  type: NodePort
